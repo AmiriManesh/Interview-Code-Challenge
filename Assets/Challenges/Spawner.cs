@@ -33,11 +33,11 @@ public class Spawner : MonoBehaviour
     //***************** Activate spawner in hierarchy to start challenge 2 **************
 
     /*Challenge 2: 
-     *Write a spawner for spawning new targets.
-     *targets must spawn with a random delay in given range
-     *player must follow new targget like other targets.
-     *new target must be in the camra view range.
-     *Bounes: write a simple event system to tell theplayer
-     *a new target was added to the scene
+        - In the Unity hierarchy, activate the `Spawner` object.
+        - Modify spawner script to spawn new targets.
+        - Targets must spawn with a random delay, using two fields in the spawner script: `_minSpawnTime` and `_maxSpawnTime`. These fields define the range for the random delay.
+        - Ensure the player follows newly spawned targets just like existing targets.
+        - New targets must spawn within the camera's view range.
+        - **Bonus:** Implement a simple event system to notify the player when a new target is added to the scene.
      */
 }
