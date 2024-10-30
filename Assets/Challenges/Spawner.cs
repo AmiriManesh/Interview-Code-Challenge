@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -17,17 +14,51 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private float _maxSpawnTime;
 
-    // your code
+    [SerializeField]
+    private float initialDelay = 5f;
 
-    void Start()
+    [SerializeField]
+    private Player _player;
+
+    [SerializeField]
+    private Camera _mainCamera;
+
+    private float _spawnTime;
+
+    private void Start()
     {
-        // your code
+        InvokeRepeating("SpawnObject", initialDelay, GetSpawnTime());
+    }
+
+    private void Update()
+    {
 
     }
 
-    void Update()
+    private float GetSpawnTime()
     {
-        // your code
+        return Random.Range(_mixSpawnTime, _maxSpawnTime);
+    }
+
+    private void SpawnObject()
+    {
+        Target newTarget =  Instantiate(_targetPrefab, _targetsParent.transform);
+        newTarget.transform.position = GetRandomPositionInCameraView();
+        newTarget.transform.position = new Vector3(newTarget.transform.position.x, newTarget.transform.position.y, 0f);
+        _player.AddNewTargets(newTarget.transform);
+    }
+
+    private Vector3 GetRandomPositionInCameraView()
+    {
+        // Generate random screen position in the camera's viewport (0 to 1)
+        float randomX = Random.Range(0f, 1f);
+        float randomY = Random.Range(0f, 1f);
+
+        // Convert the viewport position to world position
+        Vector3 viewportPoint = new Vector3(randomX, randomY, 0f); // Z = 1 to spawn in front of the camera
+        Vector3 worldPoint = _mainCamera.ViewportToWorldPoint(viewportPoint);
+
+        return worldPoint;
     }
 
     //***************** Activate spawner in hierarchy to start challenge 2 **************
